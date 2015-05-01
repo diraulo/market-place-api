@@ -14,6 +14,7 @@ gem 'active_model_serializers'
 group :development do
   gem 'sqlite3'
   gem 'spring'
+  gem 'better_errors'
 end
 
 group :test do
