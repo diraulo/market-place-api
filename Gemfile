@@ -20,6 +20,7 @@ group :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'ffaker'
+  gem 'shoulda-matchers'
 end
 
 group :doc do

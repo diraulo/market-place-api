@@ -1,13 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  before { @user = FactoryGirl.build(:user) }
+  let(:user) { FactoryGirl.create(:user) }
 
-  subject { @user }
+  describe 'Fixtures' do
+    it 'should have valid Fixtures Factory' do
+      expect(FactoryGirl.create(:user)).to be_valid
+    end
+  end
 
-  it { is_expected.to respond_to :email }
-  it { is_expected.to respond_to :password }
-  it { is_expected.to respond_to :password_confirmation }
+  describe 'Database Schema' do
+    it { is_expected.to have_db_column :email }
+    it { is_expected.to have_db_column :encrypted_password }
 
-  it { is_expected.to be_valid }
+    # Timestamps
+    it { is_expected.to have_db_column :created_at }
+    it { is_expected.to have_db_column :updated_at }
+  end
+
+  describe 'Validation' do
+    subject { FactoryGirl.build(:user) }
+    it { is_expected.to validate_presence_of :email }
+    it { is_expected.to validate_uniqueness_of :email }
+    it { is_expected.to validate_confirmation_of :password }
+    it { is_expected.to allow_value('a@a.com', 'a@1b.net').for(:email) }
+    it { is_expected.to_not allow_value('a@a', 'a@1b,net', '!d@e.se').for(:email) }
+  end
 end
