@@ -8,6 +8,12 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'devise'
 
+gem 'sabisu_rails', github: 'IcaliaLabs/sabisu-rails'
+gem 'compass-rails', '~> 1.1.7'
+gem 'furatto'
+gem 'font-awesome-rails'
+gem 'simple_form'
+
 # Api gems
 gem 'active_model_serializers'
 
