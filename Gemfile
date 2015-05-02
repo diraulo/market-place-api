@@ -15,6 +15,7 @@ group :development do
   gem 'sqlite3'
   gem 'spring'
   gem 'better_errors'
+  gem 'pry-byebug'
 end
 
 group :test do
@@ -22,6 +23,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'shoulda-matchers'
+  gem 'database_cleaner'
 end
 
 group :doc do
