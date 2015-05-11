@@ -3,6 +3,7 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -30,4 +31,7 @@ RSpec.configure do |config|
   end
 
   config.infer_spec_type_from_file_location!
+
+  # Include test helpers
+  config.include Request::JSONHelpers, type: :controller
 end
