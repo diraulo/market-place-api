@@ -1,10 +1,6 @@
 require 'rails_helper'
 require 'pry-byebug'
 RSpec.describe API::V1::UsersController, type: :controller do
-  # before(:each) do
-  #   include_default_accept_headers
-  #   request.headers['Content-Type'] = Mime::JSON.to_s
-  # end
 
   describe 'GET #show' do
     before(:each) do
@@ -56,10 +52,14 @@ RSpec.describe API::V1::UsersController, type: :controller do
     end
   end
 
-  describe 'PUT/PATCH #create' do
+  describe 'PUT/PATCH #update' do
+    before(:each) do
+      @user = FactoryGirl.create :user
+      api_authorization_header @user.auth_token
+    end
+
     context 'user is successfully updated' do
       before(:each) do
-        @user = FactoryGirl.create :user
         patch :update, id: @user.id, user: { email: 'newmail@example.com' }
       end
 
@@ -73,7 +73,6 @@ RSpec.describe API::V1::UsersController, type: :controller do
 
     context 'user is not updated' do
       before(:each) do
-        @user = FactoryGirl.create :user
         patch :update, id: @user.id, user: { email: 'bademail.com' }
       end
 
@@ -94,6 +93,7 @@ RSpec.describe API::V1::UsersController, type: :controller do
   describe 'DELETE #destroy' do
     before(:each) do
       @user = FactoryGirl.create :user
+      api_authorization_header @user.auth_token
       delete :destroy, id: @user.id
     end
 
