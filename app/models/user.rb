@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   validates :auth_token, uniqueness: true
 
+  has_many :products, dependent: :destroy
+
   def generate_authentication_token!
     loop do
       self.auth_token = Devise.friendly_token
